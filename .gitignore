@@ -1,0 +1,14 @@
+# Ignore any folder named "Snippet" (at any depth, any case)
+**/[Ss]nippet/**
+
+# Keep an optional placeholder file if you want the dir to exist in the tree
+!**/[Ss]nippet/**/.gitkeep
+
+# Common OS/editor junk
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+.vscode/
+.idea/
