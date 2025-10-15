@@ -7,6 +7,19 @@
     <title>Course Request (Withdraw / Change / Mode)</title>
 
     <style>
+        /* Force a white page background ONLY on pages that include our forms */
+        html:has(#cs-exam),
+        body:has(#cs-exam),
+        html:has(#cs-req),
+        body:has(#cs-req) {
+            background-color: #fff !important;
+        }
+
+        /* If an Elementor section around the form has a background, neutralize it */
+        .elementor-section:has(#cs-exam),
+        .elementor-section:has(#cs-req) {
+            background-color: #fff !important;
+        }
         /* ===== Scoped reset (no global bleed) ===== */
         #cs-req,
         #cs-req * {
@@ -39,7 +52,7 @@
         }
 
         #cs-req .cs-desc {
-            font-size: 16px;
+            font-size: 18px;
             color: var(--cs-sub);
             margin: 0 0 16px;
         }
@@ -60,7 +73,7 @@
             border-radius: 999px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 18px;
             transition: .15s;
         }
 
@@ -93,7 +106,7 @@
             border-radius: 999px;
             padding: 6px 12px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 10px;
         }
 
@@ -119,7 +132,7 @@
         }
 
         #cs-req .cs-label {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
             color: var(--cs-ink);
         }
@@ -141,7 +154,7 @@
             border-radius: 12px;
             background: #fff;
             color: var(--cs-ink);
-            font-size: 16px;
+            font-size: 18px;
             line-height: 1.3;
             outline: none;
             -webkit-appearance: none;
@@ -191,7 +204,7 @@
             border: 1px dashed var(--cs-line);
             border-radius: 12px;
             background: #f8fafc;
-            font-size: 16px;
+            font-size: 18px;
             line-height: 1.6;
         }
 
@@ -207,7 +220,7 @@
 
         #cs-req .cs-terms li {
             margin: 8px 0;
-            font-size: 16px;
+            font-size: 18px;
             color: var(--cs-ink);
         }
 
@@ -218,7 +231,7 @@
         }
 
         #cs-req .cs-check {
-            font-size: 16px;
+            font-size: 18px;
             color: #0f172a;
             line-height: 1.45;
         }
@@ -259,7 +272,7 @@
             padding: 10px 12px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -281,12 +294,12 @@
         }
 
         #cs-req .name {
-            font-size: 14px;
+            font-size: 18px;
             color: #334155;
         }
 
         #cs-req .pill {
-            font-size: 12px;
+            font-size: 18px;
             color: #1e3a8a;
             background: #eef2ff;
             border: 1px solid #e0e7ff;
@@ -304,7 +317,7 @@
             color: #fff;
             padding: 8px 12px;
             border-radius: 999px;
-            font-size: 14px;
+            font-size: 16px;
             box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
             opacity: 0;
             pointer-events: none;
@@ -333,7 +346,7 @@
             padding: 12px 48px;
             font-weight: 800;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         #cs-req .cs-btn:hover {
@@ -342,7 +355,7 @@
 
         #cs-req .cs-status {
             min-height: 1.4em;
-            font-size: 16px;
+            font-size: 18px;
         }
 
         #cs-req .cs-ok {
@@ -353,6 +366,31 @@
         #cs-req .cs-err {
             color: #b91c1c;
             font-weight: 700;
+        }
+
+        /* Kill Elementor field shadows ONLY inside our forms, keep our focus ring */
+        #cs-exam input.cs-input,
+        #cs-exam select.cs-input,
+        #cs-exam textarea.cs-input,
+        #cs-exam input[type="file"].cs-input,
+        #cs-req input.cs-input,
+        #cs-req select.cs-input,
+        #cs-req textarea.cs-input,
+        #cs-req input[type="file"].cs-input {
+            box-shadow: none;
+            /* overrides .elementor-kit-465 rule */
+        }
+
+        /* Preserve our intended focus state */
+        #cs-exam input.cs-input:focus,
+        #cs-exam select.cs-input:focus,
+        #cs-exam textarea.cs-input:focus,
+        #cs-exam input[type="file"].cs-input:focus,
+        #cs-req input.cs-input:focus,
+        #cs-req select.cs-input:focus,
+        #cs-req textarea.cs-input:focus,
+        #cs-req input[type="file"].cs-input:focus {
+            box-shadow: 0 0 0 3px color-mix(in srgb, #4169e1 25%, transparent);
         }
     </style>
 </head>
