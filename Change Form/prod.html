@@ -4,30 +4,44 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Course (Withdrawal / Change / Mode Switch) Request</title>
+    <title>Course Request (Withdraw / Change / Mode)</title>
 
     <style>
-        /* ---------- Scoped UI (cs-*) ---------- */
-        #cs-req.cs-wrap {
-            max-width: 1200px;
-        }
-
+        /* ===== Scoped reset (no global bleed) ===== */
+        #cs-req,
         #cs-req * {
-            box-sizing: border-box
+            box-sizing: border-box;
         }
 
-        /* Small page title & intro */
+        #cs-req {
+            --cs-bg: #fff;
+            --cs-ink: #0b1324;
+            --cs-sub: #475569;
+            --cs-line: #e5e7eb;
+            --cs-primary: #001161;
+            --cs-primary-ink: #fff;
+            --cs-chip-bg: #eef2ff;
+            --cs-chip-ink: #1e1b4b;
+        }
+
+        #cs-req {
+            max-width: 1200px;
+            color: var(--cs-ink);
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        }
+
+        /* Title (optional) */
         #cs-req .cs-title {
             font-size: 28px;
             font-weight: 800;
-            color: #001161;
-            margin: 4px 0 10px
+            color: var(--cs-primary);
+            margin: 4px 0 10px;
         }
 
         #cs-req .cs-desc {
-            font-size: 18px;
-            color: #0f172a;
-            margin: 0 0 16px
+            font-size: 16px;
+            color: var(--cs-sub);
+            margin: 0 0 16px;
         }
 
         /* Tabs */
@@ -35,64 +49,64 @@
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            margin: 8px 0 18px
+            margin: 8px 0 18px;
         }
 
         #cs-req .cs-tab {
             appearance: none;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--cs-line);
             background: #fff;
             padding: 10px 16px;
             border-radius: 999px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 18px;
-            transition: .15s
+            font-size: 16px;
+            transition: .15s;
         }
 
         #cs-req .cs-tab:hover {
             border-color: #4169e1;
-            box-shadow: 0 0 0 3px color-mix(in srgb, #4169e1 20%, transparent)
+            box-shadow: 0 0 0 3px color-mix(in srgb, #4169e1 20%, transparent);
         }
 
         #cs-req .cs-tab.is-active {
             border-color: #4169e1;
             color: #ff0000;
-            box-shadow: 0 0 0 3px rgba(0, 17, 97, .12)
+            box-shadow: 0 0 0 3px rgba(0, 17, 97, .12);
         }
 
         /* Card */
         #cs-req .cs-card {
-            border: 1px solid #e5e7eb;
+            background: var(--cs-bg);
+            border: 1px solid var(--cs-line);
             border-radius: 16px;
             padding: 22px;
-            background: #fff;
-            box-shadow: 0 10px 28px rgba(2, 6, 23, .08)
+            box-shadow: 0 10px 28px rgba(2, 6, 23, .08);
         }
 
         /* Section chip */
         #cs-req .cs-chip {
             display: inline-block;
-            background: #eef2ff;
-            color: #1e1b4b;
+            background: var(--cs-chip-bg);
+            color: var(--cs-chip-ink);
             border: 1px solid #e0e7ff;
             border-radius: 999px;
             padding: 6px 12px;
             font-weight: 700;
             font-size: 16px;
-            margin-bottom: 10px
+            margin-bottom: 10px;
         }
 
         /* Grid */
         #cs-req .cs-row {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
         }
 
         @media (max-width:820px) {
             #cs-req .cs-row {
-                grid-template-columns: 1fr
+                grid-template-columns: 1fr;
             }
         }
 
@@ -101,44 +115,50 @@
             display: flex;
             flex-direction: column;
             gap: 6px;
-            margin-bottom: 6px
+            margin-bottom: 6px;
         }
 
         #cs-req .cs-label {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
-            color: #0b1324
+            color: var(--cs-ink);
         }
 
         #cs-req .cs-reqmark::after {
             content: " *";
-            color: #e11d48
+            color: #e11d48;
         }
 
-        /* Unified inputs (text, select, textarea, file) */
-        #cs-req .cs-input {
+        /* Inputs (uniform across types) */
+        #cs-req .cs-input,
+        #cs-req select.cs-input,
+        #cs-req textarea.cs-input,
+        #cs-req input[type="file"].cs-input {
             width: 100%;
+            min-height: 52px;
+            padding: 12px 14px;
             border: 1px solid #cbd5e1;
             border-radius: 12px;
-            padding: 12px 14px;
-            font-size: 18px;
             background: #fff;
-            outline: none;
-            min-height: 52px;
+            color: var(--cs-ink);
+            font-size: 16px;
             line-height: 1.3;
-            transition: border-color .15s, box-shadow .15s, transform .05s
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+            transition: border-color .15s, box-shadow .15s;
         }
 
         #cs-req .cs-input::placeholder {
             color: #94a3b8;
-            font-size: 18px
         }
 
-        /* Selects look identical + caret */
+        #cs-req .cs-input:focus {
+            border-color: #4169e1;
+            box-shadow: 0 0 0 3px color-mix(in srgb, #4169e1 25%, transparent);
+        }
+
         #cs-req select.cs-input {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="%23001161" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>');
             background-repeat: no-repeat;
             background-position: right 14px center;
@@ -147,141 +167,76 @@
             cursor: pointer;
         }
 
-        #cs-req select.cs-input::-ms-expand {
-            display: none
-        }
-
         #cs-req select.cs-input:disabled {
-            background-color: #f8fafc;
+            background: #f8fafc;
             color: #94a3b8;
             cursor: not-allowed;
-            background-image: none
+            background-image: none;
         }
 
-        /* Focus */
-        #cs-req .cs-input:focus {
-            border-color: #4169e1;
-            box-shadow: 0 0 0 3px color-mix(in srgb, #4169e1 25%, transparent)
+        #cs-req textarea.cs-input {
+            min-height: 120px;
+            resize: vertical;
         }
 
-        /* File input */
         #cs-req input[type="file"].cs-input {
+            min-height: auto;
             padding: 10px;
-            min-height: unset
         }
 
-        /* Notes / help */
-        #cs-req .cs-help,
-        #cs-req .cs-note {
-            font-size: 18px;
-            color: #475569
-        }
-
-        #cs-req .cs-subnote {
-            margin: -2px 0 12px;
-            font-size: 18px;
-            color: #0b1324;
-            background: #fff7ed;
-            border: 1px solid #fed7aa;
-            padding: 10px 12px;
-            border-radius: 10px
-        }
-
-        /* Terms list */
-        #cs-req .cs-terms {
-            margin: 8px 0 4px 18px;
-            padding: 0
-        }
-
-        #cs-req .cs-terms li {
-            font-weight: 500;
-            margin: 8px 0;
-            font-size: 18px;
-            color: #0b1324
-        }
-
-        /* Checks */
-        #cs-req .cs-checks {
-            display: flex;
-            flex-direction: column;
-            gap: 10px
-        }
-
-        #cs-req .cs-check {
-            font-size: 18px;
-            color: #0f172a;
-            line-height: 1.45
-        }
-
-        #cs-req .cs-check input {
-            margin-right: 10px
-        }
-
-        /* Separator (extra breathing room) */
-        #cs-req .cs-sep {
-            border: none;
-            border-top: 1px dashed #e2e8f0;
-            margin: 24px 0
-        }
-
-        /* Payment/info banner */
+        /* Info / terms / checks */
         #cs-req .cs-notice {
             margin: 12px 0 20px;
             padding: 14px 16px;
-            border: 1px dashed #e5e7eb;
+            border: 1px dashed var(--cs-line);
             border-radius: 12px;
             background: #f8fafc;
-            font-size: 18px;
-            line-height: 1.6
+            font-size: 16px;
+            line-height: 1.6;
         }
 
         #cs-req .cs-notice a {
             color: #4169e1;
-            text-decoration: underline
+            text-decoration: underline;
         }
 
-        /* Actions */
-        #cs-req .cs-actions {
+        #cs-req .cs-terms {
+            margin: 8px 0 4px 18px;
+            padding: 0;
+        }
+
+        #cs-req .cs-terms li {
+            margin: 8px 0;
+            font-size: 16px;
+            color: var(--cs-ink);
+        }
+
+        #cs-req .cs-checks {
             display: flex;
-            gap: 12px;
-            align-items: center;
-            flex-wrap: wrap
+            flex-direction: column;
+            gap: 10px;
         }
 
-        #cs-req .cs-btn {
-            background: #001161 !important;
-            color: #fff !important;
-            border: none !important;
-            border-radius: 12px !important;
-            padding: 12px 48px !important;
-            font-weight: 800 !important;
-            cursor: pointer !important;
-            font-size: 18px !important;
-            box-shadow: none !important
+        #cs-req .cs-check {
+            font-size: 16px;
+            color: #0f172a;
+            line-height: 1.45;
         }
 
-        #cs-req .cs-btn:hover {
-            filter: brightness(1.05)
+        #cs-req .cs-check input {
+            margin-right: 10px;
         }
 
-        #cs-req .cs-status {
-            min-height: 1.4em;
-            font-size: 18px
+        /* Separator */
+        #cs-req .cs-sep {
+            border: none;
+            border-top: 1px dashed #e2e8f0;
+            margin: 24px 0;
         }
 
-        #cs-req .cs-ok {
-            color: #16a34a;
-            font-weight: 700
-        }
-
-        #cs-req .cs-err {
-            color: #b91c1c;
-            font-weight: 700
-        }
-
-        /* Autocomplete (course search) */
+        /* Autocomplete */
         #cs-req .ac-wrap {
-            position: relative
+            position: relative;
         }
 
         #cs-req .ac-list {
@@ -291,43 +246,43 @@
             top: calc(100% + 6px);
             z-index: 20;
             background: #fff;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--cs-line);
             border-radius: 12px;
             box-shadow: 0 12px 26px rgba(2, 6, 23, .10);
             max-height: 280px;
             overflow: auto;
             padding: 6px;
-            display: none
+            display: none;
         }
 
         #cs-req .ac-item {
             padding: 10px 12px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px
+            gap: 8px;
         }
 
         #cs-req .ac-item:hover,
         #cs-req .ac-item[aria-selected="true"] {
-            background: #f1f5ff
+            background: #f1f5ff;
         }
 
         #cs-req .result-left {
             display: flex;
-            flex-direction: column
+            flex-direction: column;
         }
 
         #cs-req .code {
-            font-weight: 700
+            font-weight: 700;
         }
 
         #cs-req .name {
-            font-size: 16px;
-            color: #334155
+            font-size: 14px;
+            color: #334155;
         }
 
         #cs-req .pill {
@@ -336,10 +291,10 @@
             background: #eef2ff;
             border: 1px solid #e0e7ff;
             border-radius: 999px;
-            padding: 2px 8px
+            padding: 2px 8px;
         }
 
-        /* Tiny toast used for “select grade first” */
+        /* Toast */
         #cs-req .cs-toast {
             position: fixed;
             top: 12px;
@@ -349,24 +304,62 @@
             color: #fff;
             padding: 8px 12px;
             border-radius: 999px;
-            font-size: 16px;
+            font-size: 14px;
             box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
             opacity: 0;
             pointer-events: none;
-            transition: opacity .18s, transform .18s;
-            z-index: 9999
+            transition: .18s;
+            z-index: 9999;
         }
 
         #cs-req .cs-toast.show {
             opacity: 1;
-            transform: translateX(-50%) translateY(0)
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Actions */
+        #cs-req .cs-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        #cs-req .cs-btn {
+            background: var(--cs-primary);
+            color: var(--cs-primary-ink);
+            border: none;
+            border-radius: 12px;
+            padding: 12px 48px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #cs-req .cs-btn:hover {
+            filter: brightness(1.05);
+        }
+
+        #cs-req .cs-status {
+            min-height: 1.4em;
+            font-size: 16px;
+        }
+
+        #cs-req .cs-ok {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        #cs-req .cs-err {
+            color: #b91c1c;
+            font-weight: 700;
         }
     </style>
 </head>
 
 <body>
-    <div id="cs-req" class="cs-wrap">
 
+    <div id="cs-req" class="cs-wrap">
         <div class="cs-tabs" role="tablist" aria-label="Request type">
             <button class="cs-tab is-active" data-tab="withdraw" role="tab" aria-selected="true">Withdraw from
                 Course</button>
@@ -375,25 +368,27 @@
                 In-Person)</button>
         </div>
 
-        <!-- ========== WITHDRAW ========== -->
+        <!-- ===== WITHDRAW ===== -->
         <section id="pane-withdraw" class="cs-card" role="tabpanel">
             <span class="cs-chip">Withdrawal Request — Form Details</span>
-            <p class="cs-subnote">In order to withdraw — please make sure that all the fee is paid to process
+            <p class="cs-notice">In order to withdraw, please make sure that all fees are paid to process the
                 withdrawal.</p>
 
             <div class="cs-row">
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="w-name">Student Full Name</label>
-                    <input class="cs-input" id="w-name" autocomplete="name" placeholder="First Last" required>
+                    <input class="cs-input" id="w-name" name="w_name" autocomplete="name" placeholder="First Last"
+                        required>
                 </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="w-email">Student Email</label>
-                    <input class="cs-input" id="w-email" type="email" autocomplete="email"
+                    <input class="cs-input" id="w-email" name="w_email" type="email" autocomplete="email"
                         placeholder="name@example.com" required>
                 </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="w-phone">Phone Number</label>
-                    <input class="cs-input" id="w-phone" inputmode="tel" placeholder="+1 555 555 5555" required>
+                    <input class="cs-input" id="w-phone" name="w_phone" inputmode="tel" placeholder="+1 555 555 5555"
+                        required>
                 </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="w-age">Are you 18 or above?</label>
@@ -413,7 +408,7 @@
                     <input class="cs-input" id="w-coursecode" autocomplete="off"
                         placeholder="Start typing (e.g., MHF4U or Advanced Functions)">
                     <div id="w-ac" class="ac-list" role="listbox" aria-label="Course suggestions"></div>
-                    <div class="cs-help">Suggestions will appear below as you type.</div>
+                    <div class="cs-subnote">Suggestions will appear as you type.</div>
                 </div>
             </div>
 
@@ -437,17 +432,18 @@
 
             <span class="cs-chip">Terms &amp; Conditions</span>
             <ul class="cs-terms">
-                <li>I have read the policies and terms on the <a
-                        href="https://canstemeducation.com/course-mode-change-terms-policy/" target="_blank"
-                        rel="noopener">Course Mode Change &amp; Terms page</a>.</li>
+                <li>I have read the policies and terms on the
+                    <a href="https://canstemeducation.com/course-mode-change-terms-policy/" target="_blank"
+                        rel="noopener">Course Mode Change &amp; Terms</a> page.
+                </li>
                 <li>This request is subject to approval.</li>
                 <li>All fees already paid are non-refundable; I will not request a refund.</li>
-                <li>To reverse a submitted request, I must submit a new request; the same policies apply and it will be
-                    treated as a separate request.</li>
+                <li>To reverse a submitted request, I must submit a new request; it will be treated as a separate
+                    request.</li>
             </ul>
             <div class="cs-checks">
-                <label class="cs-check"><input id="w-ack" type="checkbox" required> <strong>I have read and agree to all
-                        the terms above.</strong></label>
+                <label class="cs-check"><input id="w-ack" type="checkbox" required> <strong>I agree to the terms
+                        above.</strong></label>
             </div>
 
             <hr class="cs-sep">
@@ -455,8 +451,9 @@
             <span class="cs-chip">Uploads</span>
             <div class="cs-field">
                 <label class="cs-label" for="w-files">Upload Supporting Documents (optional)</label>
-                <input class="cs-input" id="w-files" type="file" multiple>
-                <div class="cs-help">You can select multiple files or open the picker again to add more.</div>
+                <!-- name MUST match PHP: w_files -->
+                <input class="cs-input" id="w-files" name="w_files" type="file" multiple>
+                <div class="cs-subnote">You can select multiple files or open the picker again to add more.</div>
             </div>
 
             <hr class="cs-sep">
@@ -466,7 +463,7 @@
             </div>
         </section>
 
-        <!-- ========== CHANGE ========== -->
+        <!-- ===== CHANGE ===== -->
         <section id="pane-change" class="cs-card" role="tabpanel" hidden>
             <span class="cs-chip">Course Change — Form Details</span>
 
@@ -492,7 +489,7 @@
                     </select>
                 </div>
                 <div class="cs-field">
-                    <label class="cs-label cs-reqmark" for="c-grade">Select Grade</label>
+                    <label class="cs-label cs-reqmark" for="c-grade">Current Course — Grade</label>
                     <select class="cs-input" id="c-grade" required></select>
                 </div>
                 <div class="cs-field ac-wrap">
@@ -539,29 +536,8 @@
                     rel="noopener">https://canstemeducation.com/payment/</a>
             </div>
             <div class="cs-checks">
-                <label class="cs-check"><input id="c-paid" type="checkbox"> <strong>I made the payment on the above page
-                        and understand processing starts after verification.</strong></label>
-            </div>
-
-            <hr class="cs-sep">
-
-            <span class="cs-chip">Terms &amp; Conditions</span>
-            <ul class="cs-terms">
-                <li>I have read the policies, fees and terms on the <a
-                        href="https://canstemeducation.com/course-mode-change-terms-policy/" target="_blank"
-                        rel="noopener">Course Mode Change &amp; Terms page</a>.</li>
-                <li>This request is subject to approval.</li>
-                <li>All fees are non-refundable; I will not request a refund.</li>
-                <li>To reverse a submitted request, I must submit a new request; the same fees apply and it will be
-                    treated as a separate request.</li>
-                <li><strong>I have completed the prerequisite for the requested course; otherwise my request will not be
-                        accepted.</strong></li>
-                <li><strong>I will submit proof of the prerequisite along with this request (see uploads
-                        below).</strong></li>
-            </ul>
-            <div class="cs-checks">
-                <label class="cs-check"><input id="c-ack" type="checkbox" required> <strong>I have read and agree to all
-                        the terms above.</strong></label>
+                <label class="cs-check"><input id="c-paid" type="checkbox"> <strong>I made the payment and understand
+                        processing starts after verification.</strong></label>
             </div>
 
             <hr class="cs-sep">
@@ -569,16 +545,18 @@
             <span class="cs-chip">Uploads</span>
             <div class="cs-field">
                 <label class="cs-label" for="c-up-payment">Proof of Payment</label>
-                <input class="cs-input" id="c-up-payment" type="file" multiple>
+                <!-- name MUST match PHP: c_up_payment -->
+                <input class="cs-input" id="c-up-payment" name="c_up_payment" type="file" multiple>
             </div>
             <div class="cs-field">
                 <label class="cs-label" for="c-prereq">Proof of Prerequisite Subject(s)</label>
-                <input class="cs-input" id="c-prereq" type="file" multiple>
+                <!-- name MUST match PHP: c_prereq -->
+                <input class="cs-input" id="c-prereq" name="c_prereq" type="file" multiple>
             </div>
             <div class="cs-field">
                 <label class="cs-label" for="c-files">Upload Supporting Documents</label>
-                <input class="cs-input" id="c-files" type="file" multiple>
-                <div class="cs-help">You can select multiple files or open the picker again to add more.</div>
+                <!-- name MUST match PHP: c_files -->
+                <input class="cs-input" id="c-files" name="c_files" type="file" multiple>
             </div>
 
             <hr class="cs-sep">
@@ -588,7 +566,7 @@
             </div>
         </section>
 
-        <!-- ========== MODE SWITCH ========== -->
+        <!-- ===== MODE ===== -->
         <section id="pane-mode" class="cs-card" role="tabpanel" hidden>
             <span class="cs-chip">Course Mode Switch — Form Details</span>
 
@@ -666,25 +644,8 @@
                     rel="noopener">https://canstemeducation.com/payment/</a>
             </div>
             <div class="cs-checks">
-                <label class="cs-check"><input id="m-paid" type="checkbox"> <strong>I made the payment on the above page
-                        and understand processing starts after verification.</strong></label>
-            </div>
-
-            <hr class="cs-sep">
-
-            <span class="cs-chip">Terms &amp; Conditions</span>
-            <ul class="cs-terms">
-                <li>I have read the policies, fees and terms on the <a
-                        href="https://canstemeducation.com/course-mode-change-terms-policy/" target="_blank"
-                        rel="noopener">Course Mode Change &amp; Terms page</a>.</li>
-                <li>This request is subject to approval.</li>
-                <li>All fees are non-refundable; I will not request a refund.</li>
-                <li>To reverse a submitted request, I must submit a new request; the same fees apply and it will be
-                    treated as a separate request.</li>
-            </ul>
-            <div class="cs-checks">
-                <label class="cs-check"><input id="m-ack" type="checkbox" required> <strong>I have read and agree to all
-                        the terms above.</strong></label>
+                <label class="cs-check"><input id="m-paid" type="checkbox"> <strong>I made the payment and understand
+                        processing starts after verification.</strong></label>
             </div>
 
             <hr class="cs-sep">
@@ -692,12 +653,13 @@
             <span class="cs-chip">Uploads</span>
             <div class="cs-field">
                 <label class="cs-label" for="m-up-payment">Proof of Payment</label>
-                <input class="cs-input" id="m-up-payment" type="file" multiple>
+                <!-- name MUST match PHP: m_up_payment -->
+                <input class="cs-input" id="m-up-payment" name="m_up_payment" type="file" multiple>
             </div>
             <div class="cs-field">
                 <label class="cs-label" for="m-files">Upload Supporting Documents</label>
-                <input class="cs-input" id="m-files" type="file" multiple>
-                <div class="cs-help">You can select multiple files or open the picker again to add more.</div>
+                <!-- name MUST match PHP: m_files -->
+                <input class="cs-input" id="m-files" name="m_files" type="file" multiple>
             </div>
 
             <hr class="cs-sep">
@@ -712,8 +674,7 @@
 
     <script>
         (function () {
-            /* ===== WP AJAX endpoint ===== */
-            const WEB_APP_URL = '/wp-admin/admin-ajax.php'; // action=canstem_form_email
+            const WEB_APP_URL = '/wp-admin/admin-ajax.php?action=canstem_change_request';
 
             /* ===== Datasets (codes + names by grade) ===== */
             const D9 = [{ code: "AVI1O", name: "Visual Arts" }, { code: "ADA1O", name: "Drama" }, { code: "BEM1O", name: "Building The Entrepreneurial Mindset" }, { code: "CGC1W", name: "Issues in Canadian Geography (De-Streamed)" }, { code: "ENL1W", name: "English (De-Streamed)" }, { code: "EAE1W", name: "English (French OSSD), De-Streamed" }, { code: "ENG1L", name: "English (LDCC)" }, { code: "FSF1D", name: "French (De-Streamed)" }, { code: "FSF1O", name: "Core French (Open)" }, { code: "GLS1O", name: "Learning Strategies 1: Skills for Success" }, { code: "GLE1O", name: "Learning Strategies 1: Skills for Success" }, { code: "HFN1O", name: "Food and Nutrition" }, { code: "HIF1O", name: "Exploring Family Studies" }, { code: "PPL1O", name: "Healthy Active Living Education" }, { code: "MTH1W", name: "Mathematics (De-Streamed)" }, { code: "MAT1L", name: "Mathematics (LDCC)" }, { code: "SNC1W", name: "Science (De-Streamed)" }, { code: "SNC1L", name: "Science (LDCC)" }, { code: "TIJ1O", name: "Exploring Technologies" }, { code: "TAS1O", name: "Technology and the Skilled Trades" }, { code: "NONE", name: "Not in the list" }];
@@ -725,21 +686,21 @@
             const GRADES = ["Select grade…", "Grade 9", "Grade 10", "Grade 11", "Grade 12", "ESL/ELD Courses"];
             const listFor = g => ({ "Grade 9": D9, "Grade 10": D10, "Grade 11": D11, "Grade 12": D12, "ESL/ELD Courses": DESL }[g] || []);
             const codesFor = g => listFor(g).map(x => x.code);
-            const nameFor = (g, c) => { const f = listFor(g).find(x => x.code === c); return f ? f.name : "" };
+            const nameFor = (g, c) => { const f = listFor(g).find(x => x.code === c); return f ? f.name : ""; };
 
-            /* ---------- Tabs ---------- */
+            /* Tabs */
             document.querySelector('#cs-req .cs-tabs').addEventListener('click', e => {
                 if (!e.target.classList.contains('cs-tab')) return;
-                document.querySelectorAll('#cs-req .cs-tab').forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false') });
+                document.querySelectorAll('#cs-req .cs-tab').forEach(b => { b.classList.remove('is-active'); b.setAttribute('aria-selected', 'false'); });
                 e.target.classList.add('is-active'); e.target.setAttribute('aria-selected', 'true');
                 const tab = e.target.dataset.tab;
                 document.querySelectorAll('#cs-req [role="tabpanel"]').forEach(p => p.hidden = true);
                 document.getElementById('pane-' + tab).hidden = false;
             });
 
-            /* ---------- Helpers ---------- */
+            /* Helpers */
             const val = id => (document.getElementById(id)?.value || '').trim();
-            function toast(msg) { const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 1500) }
+            function toast(msg) { const el = document.getElementById('toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove('show'), 1500); }
 
             function populateGrade(id) {
                 const s = document.getElementById(id); if (s.dataset.ready) return;
@@ -750,7 +711,7 @@
             function attachAutocomplete(inputId, listId, gradeSelId) {
                 const input = document.getElementById(inputId), list = document.getElementById(listId), gradeSel = document.getElementById(gradeSelId);
                 let active = -1;
-                function hide() { list.style.display = 'none' }
+                function hide() { list.style.display = 'none'; }
                 function render() {
                     const q = input.value.trim().toUpperCase();
                     const data = listFor(gradeSel.value);
@@ -759,7 +720,7 @@
                     items.forEach((it, idx) => {
                         const div = document.createElement('div'); div.className = 'ac-item'; div.role = 'option'; div.id = listId + '-' + idx;
                         div.innerHTML = `<div class="result-left"><span class="code">${it.code}</span><span class="name">${it.name}</span></div><span class="pill">${gradeSel.value}</span>`;
-                        div.addEventListener('click', () => { input.value = it.code; hide() });
+                        div.addEventListener('click', () => { input.value = it.code; hide(); });
                         list.appendChild(div);
                     });
                     list.style.display = items.length ? 'block' : 'none'; active = -1;
@@ -770,12 +731,12 @@
                 gradeSel.addEventListener('change', render);
                 input.addEventListener('keydown', e => {
                     const items = [...list.querySelectorAll('.ac-item')]; if (!items.length) return;
-                    if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, items.length - 1) }
-                    else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0) }
-                    else if (e.key === 'Enter') { if (active >= 0) { e.preventDefault(); items[active].click() } }
-                    else if (e.key === 'Escape') { hide() }
+                    if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, items.length - 1); }
+                    else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); }
+                    else if (e.key === 'Enter') { if (active >= 0) { e.preventDefault(); items[active].click(); } }
+                    else if (e.key === 'Escape') { hide(); }
                     items.forEach(i => i.setAttribute('aria-selected', 'false'));
-                    if (active >= 0) { items[active].setAttribute('aria-selected', 'true'); items[active].scrollIntoView({ block: 'nearest' }) }
+                    if (active >= 0) { items[active].setAttribute('aria-selected', 'true'); items[active].scrollIntoView({ block: 'nearest' }); }
                 });
             }
 
@@ -810,125 +771,106 @@
 
             function setStatus(id, msg, ok) {
                 const el = document.getElementById(id);
-                el.classList.remove('cs-ok', 'cs-err'); el.textContent = msg;
+                el.className = 'cs-status';
+                el.textContent = msg;
                 if (ok === true) el.classList.add('cs-ok');
                 if (ok === false) el.classList.add('cs-err');
             }
 
-            function resetPane(pane) {
-                pane.querySelectorAll('input,textarea,select').forEach(x => {
-                    if (x.type === 'file') { x.value = ''; }
-                    else if (x.type === 'checkbox') { x.checked = false; }
-                    else { x.value = ''; }
-                });
-                initAll(); // repopulate selects, rewire disables
+            /* Build FormData and add files under PHP-expected names */
+            function appendFiles(fd, inputId, fieldName) {
+                const el = document.getElementById(inputId);
+                if (!el || !el.files) return;
+                for (const f of el.files) fd.append(fieldName, f, f.name); // repeated name is fine in PHP
             }
 
-            /* Files -> base64 for emailing via server */
-            function fileToBase64(file) {
-                return new Promise((res, rej) => {
-                    const r = new FileReader();
-                    r.onload = () => { const out = r.result || ''; const b64 = (out.split('base64,')[1] || '').trim(); res({ name: file.name, mimeType: file.type || 'application/octet-stream', dataBase64: b64 }); };
-                    r.onerror = () => rej(r.error);
-                    r.readAsDataURL(file);
-                });
-            }
-            async function collectAttachments(ids) {
-                const out = [];
-                for (const id of ids) {
-                    const input = document.getElementById(id);
-                    if (input && input.files && input.files.length) {
-                        for (const f of [...input.files]) out.push(await fileToBase64(f));
-                    }
-                }
-                return out;
-            }
-
-            async function sendPayload(payload, statusId, paneId) {
+            async function sendFields(fields, fileMap, statusId, paneId) {
                 setStatus(statusId, 'Submitting…', null);
                 try {
                     const fd = new FormData();
-                    fd.append('action', 'canstem_form_email');
-                    fd.append('payload', JSON.stringify(payload));
+                    // regular fields
+                    Object.entries(fields).forEach(([k, v]) => fd.append(k, v));
+                    // files
+                    fileMap.forEach(({ inputId, fieldName }) => appendFiles(fd, inputId, fieldName));
+
                     const resp = await fetch(WEB_APP_URL, { method: 'POST', body: fd, credentials: 'same-origin' });
                     const data = await resp.json().catch(() => ({ ok: false, error: 'Invalid server response' }));
                     if (resp.ok && data.ok) {
                         setStatus(statusId, 'Success! Your request has been emailed to the front desk.', true);
-                        resetPane(document.getElementById(paneId));
+                        const pane = document.getElementById(paneId);
+                        pane.querySelectorAll('input,textarea,select').forEach(x => {
+                            if (x.type === 'file') x.value = '';
+                            else if (x.type === 'checkbox') x.checked = false;
+                            else x.value = '';
+                        });
+                        initAll();
                     } else {
                         setStatus(statusId, data.error || 'Error sending your request. Please try again.', false);
                     }
-                } catch (err) {
+                } catch {
                     setStatus(statusId, 'Network error. Please try again.', false);
                 }
             }
 
-            /* ---------- Submit handlers ---------- */
-            async function submitWithdraw() {
+            /* Submit handlers */
+            window.submitWithdraw = async function () {
                 if (!isValid('pane-withdraw')) return;
                 const grade = val('w-grade'), code = val('w-coursecode');
                 if (!validateCourseCode(grade, code)) { alert('Please choose a valid course code for the selected grade.'); return; }
-                const attachments = await collectAttachments(['w-files']);
-                const payload = {
+
+                await sendFields({
                     type: 'Withdrawal',
                     name: val('w-name'), email: val('w-email'), phone: val('w-phone'),
-                    grade, courseCode: code, isAdult: (val('w-age') === 'yes'),
+                    grade, courseCode: code,
                     studentSig: val('w-stusig'), parentSig: val('w-parentsig'),
-                    reason: val('w-reason'),
-                    attachments,
-                    hasSupporting: document.getElementById('w-files').files.length > 0
-                };
-                sendPayload(payload, 'w-status', 'pane-withdraw');
-            }
-            window.submitWithdraw = submitWithdraw;
+                    reason: val('w-reason')
+                }, [
+                    { inputId: 'w-files', fieldName: 'w_files' }
+                ], 'w-status', 'pane-withdraw');
+            };
 
-            async function submitChange() {
+            window.submitChange = async function () {
                 if (!isValid('pane-change')) return;
                 const gradeCur = val('c-grade'), codeCur = val('c-coursecode');
                 const gradeNew = val('c-grade2'), codeNew = val('c-newcode');
-                if (!validateCourseCode(gradeCur, codeCur)) { alert('Please pick a valid Current Course for the selected grade.'); return; }
-                if (!validateCourseCode(gradeNew, codeNew)) { alert('Please pick a valid NEW course code for the selected grade.'); return; }
-                const attachments = await collectAttachments(['c-up-payment', 'c-prereq', 'c-files']);
-                const payload = {
+                if (!validateCourseCode(gradeCur, codeCur)) { alert('Please pick a valid current course for the selected grade.'); return; }
+                if (!validateCourseCode(gradeNew, codeNew)) { alert('Please pick a valid NEW course for the selected grade.'); return; }
+
+                await sendFields({
                     type: 'Change Course',
                     name: val('c-name'), email: val('c-email'), phone: val('c-phone'),
                     grade: gradeCur, courseCode: codeCur,
                     newcourse: `${codeNew} – ${nameFor(gradeNew, codeNew)}`,
-                    isAdult: (val('c-age') === 'yes'),
                     studentSig: val('c-stusig'), parentSig: val('c-parentsig'),
                     reason: val('c-reason'),
-                    attachments,
-                    paidConfirmed: document.getElementById('c-paid').checked,
-                    hasPayment: document.getElementById('c-up-payment').files.length > 0,
-                    hasPrereq: document.getElementById('c-prereq').files.length > 0,
-                    hasSupporting: document.getElementById('c-files').files.length > 0
-                };
-                sendPayload(payload, 'c-status', 'pane-change');
-            }
-            window.submitChange = submitChange;
+                    paidConfirmed: document.getElementById('c-paid').checked ? 'Yes' : 'No'
+                }, [
+                    { inputId: 'c-up-payment', fieldName: 'c_up_payment' },
+                    { inputId: 'c-prereq', fieldName: 'c_prereq' },
+                    { inputId: 'c-files', fieldName: 'c_files' }
+                ], 'c-status', 'pane-change');
+            };
 
-            async function submitMode() {
+            window.submitMode = async function () {
                 if (!isValid('pane-mode')) return;
                 const grade = val('m-grade'), code = val('m-coursecode');
                 if (!validateCourseCode(grade, code)) { alert('Please choose a valid course code for the selected grade.'); return; }
-                const attachments = await collectAttachments(['m-up-payment', 'm-files']);
-                const payload = {
+
+                await sendFields({
                     type: 'Mode Switch',
                     name: val('m-name'), email: val('m-email'), phone: val('m-phone'),
-                    grade, courseCode: code, currentMode: val('m-currentmode'), mode: val('m-mode'),
-                    isAdult: (val('m-age') === 'yes'),
+                    grade, courseCode: code,
+                    currentMode: val('m-currentmode'), mode: val('m-mode'),
                     studentSig: val('m-stusig'), parentSig: val('m-parentsig'),
                     reason: val('m-reason'),
-                    attachments,
-                    paidConfirmed: document.getElementById('m-paid').checked,
-                    hasPayment: document.getElementById('m-up-payment').files.length > 0,
-                    hasSupporting: document.getElementById('m-files').files.length > 0
-                };
-                sendPayload(payload, 'm-status', 'pane-mode');
-            }
-            window.submitMode = submitMode;
+                    paidConfirmed: document.getElementById('m-paid').checked ? 'Yes' : 'No'
+                }, [
+                    { inputId: 'm-up-payment', fieldName: 'm_up_payment' },
+                    { inputId: 'm-files', fieldName: 'm_files' }
+                ], 'm-status', 'pane-mode');
+            };
 
-            /* ---------- Init ---------- */
+            /* Init */
             function initAll() {
                 ['w-grade', 'c-grade', 'c-grade2', 'm-grade'].forEach(populateGrade);
                 attachAutocomplete('w-coursecode', 'w-ac', 'w-grade');
