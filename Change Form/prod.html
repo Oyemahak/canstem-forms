@@ -21,7 +21,57 @@
             background-color: #fff !important;
         }
 
-        /* ===== Scoped reset (no global bleed) ===== */
+        /* ===================== Elementor Kit containment (buttons/tabs) ===================== */
+        /* Our primary action button */
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) .cs-btn {
+            background: var(--cs-primary) !important;
+            color: var(--cs-primary-ink) !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) .cs-btn:hover,
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) .cs-btn:focus {
+            filter: brightness(1.05);
+            outline: none;
+            box-shadow: 0 0 0 3px color-mix(in srgb, #4169e1 25%, transparent) !important;
+        }
+
+        /* Tabs: KEEP them as white pills with borders (not Elementor blue buttons) */
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) .cs-tab {
+            background: #fff !important;
+            color: var(--cs-ink) !important;
+            border: 1px solid var(--cs-line) !important;
+            box-shadow: none !important;
+        }
+
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) .cs-tab:hover,
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) .cs-tab:focus {
+            border-color: #4169e1 !important;
+            box-shadow: 0 0 0 3px color-mix(in srgb, #4169e1 20%, transparent) !important;
+            outline: none !important;
+        }
+
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) .cs-tab.is-active {
+            background: #fff !important;
+            color: #ff0000 !important;
+            /* your active tab text color */
+            border-color: #4169e1 !important;
+            box-shadow: 0 0 0 3px rgba(0, 17, 97, .12) !important;
+        }
+
+        /* Any other "button-like" elements inside our forms: neutralize Elementor kit */
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) button:not(.cs-btn):not(.cs-tab),
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) input[type="submit"],
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) input[type="button"],
+        body.elementor-kit-465 :is(#cs-exam, #cs-req) .elementor-button {
+            background: initial !important;
+            color: inherit !important;
+            border: initial !important;
+            box-shadow: none !important;
+        }
+
+        /* ===================== Scoped form styles (unchanged) ===================== */
         #cs-req,
         #cs-req * {
             box-sizing: border-box;
@@ -36,9 +86,6 @@
             --cs-primary-ink: #fff;
             --cs-chip-bg: #eef2ff;
             --cs-chip-ink: #1e1b4b;
-        }
-
-        #cs-req {
             max-width: 1200px;
             color: var(--cs-ink);
             font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -143,7 +190,7 @@
             color: #e11d48;
         }
 
-        /* Inputs (uniform across types) */
+        /* Inputs */
         #cs-req .cs-input,
         #cs-req select.cs-input,
         #cs-req textarea.cs-input,
@@ -331,7 +378,7 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Actions */
+        /* Actions / status */
         #cs-req .cs-actions {
             display: flex;
             gap: 12px;
@@ -378,7 +425,7 @@
         #cs-req select.cs-input,
         #cs-req textarea.cs-input,
         #cs-req input[type="file"].cs-input {
-            box-shadow: none;
+            box-shadow: none !important;
         }
 
         /* Preserve our intended focus state */
@@ -390,7 +437,7 @@
         #cs-req select.cs-input:focus,
         #cs-req textarea.cs-input:focus,
         #cs-req input[type="file"].cs-input:focus {
-            box-shadow: 0 0 0 3px color-mix(in srgb, #4169e1 25%, transparent);
+            box-shadow: 0 0 0 3px color-mix(in srgb, #4169e1 25%, transparent) !important;
         }
     </style>
 </head>
@@ -827,7 +874,7 @@
                 const setState = () => { const need = !(grade && grade.value && grade.value !== GRADES[0]); input.disabled = need; };
                 setState(); grade.addEventListener('change', setState);
                 ['mousedown', 'mouseenter', 'touchstart', 'focus'].forEach(ev => {
-                    input.addEventListener(ev, (e) => { if (input.disabled) { e.preventDefault(); input.blur(); toast('Please select grade first'); } }, { passive: false });
+                    input.addEventListener(ev, (e) => { if (input.disabled) { e.preventDefault(); input.blur(); } }, { passive: false });
                 });
             }
 
