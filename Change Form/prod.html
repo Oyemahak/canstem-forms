@@ -20,6 +20,7 @@
         .elementor-section:has(#cs-req) {
             background-color: #fff !important;
         }
+
         /* ===== Scoped reset (no global bleed) ===== */
         #cs-req,
         #cs-req * {
@@ -378,7 +379,6 @@
         #cs-req textarea.cs-input,
         #cs-req input[type="file"].cs-input {
             box-shadow: none;
-            /* overrides .elementor-kit-465 rule */
         }
 
         /* Preserve our intended focus state */
@@ -414,8 +414,13 @@
 
             <div class="cs-row">
                 <div class="cs-field">
-                    <label class="cs-label cs-reqmark" for="w-name">Student Full Name</label>
-                    <input class="cs-input" id="w-name" name="w_name" autocomplete="name" placeholder="First Last"
+                    <label class="cs-label cs-reqmark" for="w-fname">First Name</label>
+                    <input class="cs-input" id="w-fname" name="w_fname" autocomplete="given-name" placeholder="First"
+                        required>
+                </div>
+                <div class="cs-field">
+                    <label class="cs-label cs-reqmark" for="w-lname">Last Name</label>
+                    <input class="cs-input" id="w-lname" name="w_lname" autocomplete="family-name" placeholder="Last"
                         required>
                 </div>
                 <div class="cs-field">
@@ -427,14 +432,6 @@
                     <label class="cs-label cs-reqmark" for="w-phone">Phone Number</label>
                     <input class="cs-input" id="w-phone" name="w_phone" inputmode="tel" placeholder="+1 555 555 5555"
                         required>
-                </div>
-                <div class="cs-field">
-                    <label class="cs-label cs-reqmark" for="w-age">Are you 18 or above?</label>
-                    <select class="cs-input" id="w-age" required>
-                        <option value="">Select…</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
                 </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="w-grade">Select Grade</label>
@@ -449,13 +446,20 @@
                     <div class="cs-subnote">Suggestions will appear as you type.</div>
                 </div>
             </div>
-
-            <div class="cs-field">
-                <label class="cs-label cs-reqmark" for="w-reason">Reason for Withdrawal</label>
-                <textarea class="cs-input" id="w-reason" rows="4" placeholder="Brief reason" required></textarea>
-            </div>
-
+            <hr class="cs-sep">
             <div class="cs-row">
+                <div class="cs-field">
+                    <label class="cs-label cs-reqmark" for="w-age">Are you 18 or above?</label>
+                    <select class="cs-input" id="w-age" required>
+                        <option value="">Select…</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="cs-field">
+                    <label class="cs-label cs-reqmark" for="w-reason">Reason for Withdrawal</label>
+                    <textarea class="cs-input" id="w-reason" rows="4" placeholder="Brief reason" required></textarea>
+                </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="w-stusig">Student Signature</label>
                     <input class="cs-input" id="w-stusig" placeholder="Type full name as signature" required>
@@ -489,7 +493,6 @@
             <span class="cs-chip">Uploads</span>
             <div class="cs-field">
                 <label class="cs-label" for="w-files">Upload Supporting Documents (optional)</label>
-                <!-- name MUST match PHP: w_files -->
                 <input class="cs-input" id="w-files" name="w_files" type="file" multiple>
                 <div class="cs-subnote">You can select multiple files or open the picker again to add more.</div>
             </div>
@@ -507,8 +510,12 @@
 
             <div class="cs-row">
                 <div class="cs-field">
-                    <label class="cs-label cs-reqmark" for="c-name">Student Full Name</label>
-                    <input class="cs-input" id="c-name" placeholder="First Last" required>
+                    <label class="cs-label cs-reqmark" for="c-fname">First Name</label>
+                    <input class="cs-input" id="c-fname" placeholder="First" required>
+                </div>
+                <div class="cs-field">
+                    <label class="cs-label cs-reqmark" for="c-lname">Last Name</label>
+                    <input class="cs-input" id="c-lname" placeholder="Last" required>
                 </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="c-email">Student Email</label>
@@ -518,14 +525,7 @@
                     <label class="cs-label cs-reqmark" for="c-phone">Phone Number</label>
                     <input class="cs-input" id="c-phone" inputmode="tel" placeholder="+1 555 555 5555" required>
                 </div>
-                <div class="cs-field">
-                    <label class="cs-label cs-reqmark" for="c-age">Are you 18 or above?</label>
-                    <select class="cs-input" id="c-age" required>
-                        <option value="">Select…</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                </div>
+
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="c-grade">Current Course — Grade</label>
                     <select class="cs-input" id="c-grade" required></select>
@@ -549,13 +549,20 @@
                     <div id="c-ac2" class="ac-list" role="listbox" aria-label="Course suggestions"></div>
                 </div>
             </div>
-
-            <div class="cs-field">
-                <label class="cs-label cs-reqmark" for="c-reason">Reason for Change</label>
-                <textarea class="cs-input" id="c-reason" rows="4" placeholder="Brief reason" required></textarea>
-            </div>
-
+            <hr class="cs-sep">
             <div class="cs-row">
+                <div class="cs-field">
+                    <label class="cs-label cs-reqmark" for="c-age">Are you 18 or above?</label>
+                    <select class="cs-input" id="c-age" required>
+                        <option value="">Select…</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="cs-field">
+                    <label class="cs-label cs-reqmark" for="c-reason">Reason for Change</label>
+                    <textarea class="cs-input" id="c-reason" rows="4" placeholder="Brief reason" required></textarea>
+                </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="c-stusig">Student Signature</label>
                     <input class="cs-input" id="c-stusig" placeholder="Type full name as signature" required>
@@ -564,6 +571,27 @@
                     <label class="cs-label" id="c-parentsig-label" for="c-parentsig">Parent/Guardian Signature</label>
                     <input class="cs-input" id="c-parentsig" placeholder="Parent/guardian full name as signature">
                 </div>
+            </div>
+
+            <hr class="cs-sep">
+
+            <span class="cs-chip">Terms &amp; Conditions</span>
+            <ul class="cs-terms">
+                <li>I have read the policies, fees and terms on the
+                    <a href="https://canstemeducation.com/course-mode-change-terms-policy/" target="_blank"
+                        rel="noopener">Course Mode Change &amp; Terms</a> page.
+                </li>
+                <li>This request is subject to approval.</li>
+                <li>All fees are non-refundable; I will not request a refund.</li>
+                <li>To reverse a submitted request, I must submit a new request; the same fees apply and it will be
+                    treated as a separate request.</li>
+                <li>I have completed the prerequisite for the requested course; otherwise my request will not be
+                    accepted.</li>
+                <li>I will submit proof of the prerequisite along with this request (see uploads below).</li>
+            </ul>
+            <div class="cs-checks">
+                <label class="cs-check"><input id="c-ack" type="checkbox" required> <strong>I have read and agree to all
+                        the terms above.</strong></label>
             </div>
 
             <hr class="cs-sep">
@@ -583,17 +611,14 @@
             <span class="cs-chip">Uploads</span>
             <div class="cs-field">
                 <label class="cs-label" for="c-up-payment">Proof of Payment</label>
-                <!-- name MUST match PHP: c_up_payment -->
                 <input class="cs-input" id="c-up-payment" name="c_up_payment" type="file" multiple>
             </div>
             <div class="cs-field">
                 <label class="cs-label" for="c-prereq">Proof of Prerequisite Subject(s)</label>
-                <!-- name MUST match PHP: c_prereq -->
                 <input class="cs-input" id="c-prereq" name="c_prereq" type="file" multiple>
             </div>
             <div class="cs-field">
                 <label class="cs-label" for="c-files">Upload Supporting Documents</label>
-                <!-- name MUST match PHP: c_files -->
                 <input class="cs-input" id="c-files" name="c_files" type="file" multiple>
             </div>
 
@@ -610,8 +635,12 @@
 
             <div class="cs-row">
                 <div class="cs-field">
-                    <label class="cs-label cs-reqmark" for="m-name">Student Full Name</label>
-                    <input class="cs-input" id="m-name" placeholder="First Last" required>
+                    <label class="cs-label cs-reqmark" for="m-fname">First Name</label>
+                    <input class="cs-input" id="m-fname" placeholder="First" required>
+                </div>
+                <div class="cs-field">
+                    <label class="cs-label cs-reqmark" for="m-lname">Last Name</label>
+                    <input class="cs-input" id="m-lname" placeholder="Last" required>
                 </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="m-email">Student Email</label>
@@ -620,14 +649,6 @@
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="m-phone">Phone Number</label>
                     <input class="cs-input" id="m-phone" inputmode="tel" placeholder="+1 555 555 5555" required>
-                </div>
-                <div class="cs-field">
-                    <label class="cs-label cs-reqmark" for="m-age">Are you 18 or above?</label>
-                    <select class="cs-input" id="m-age" required>
-                        <option value="">Select…</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
                 </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="m-grade">Select Grade</label>
@@ -657,13 +678,20 @@
                     </select>
                 </div>
             </div>
-
-            <div class="cs-field">
-                <label class="cs-label cs-reqmark" for="m-reason">Reason for Mode Switch</label>
-                <textarea class="cs-input" id="m-reason" rows="4" placeholder="Brief reason" required></textarea>
-            </div>
-
+            <hr class="cs-sep">
             <div class="cs-row">
+                <div class="cs-field">
+                    <label class="cs-label cs-reqmark" for="m-age">Are you 18 or above?</label>
+                    <select class="cs-input" id="m-age" required>
+                        <option value="">Select…</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div class="cs-field">
+                    <label class="cs-label cs-reqmark" for="m-reason">Reason for Mode Switch</label>
+                    <textarea class="cs-input" id="m-reason" rows="4" placeholder="Brief reason" required></textarea>
+                </div>
                 <div class="cs-field">
                     <label class="cs-label cs-reqmark" for="m-stusig">Student Signature</label>
                     <input class="cs-input" id="m-stusig" placeholder="Type full name as signature" required>
@@ -672,6 +700,24 @@
                     <label class="cs-label" id="m-parentsig-label" for="m-parentsig">Parent/Guardian Signature</label>
                     <input class="cs-input" id="m-parentsig" placeholder="Parent/guardian full name as signature">
                 </div>
+            </div>
+
+            <hr class="cs-sep">
+
+            <span class="cs-chip">Terms &amp; Conditions</span>
+            <ul class="cs-terms">
+                <li>I have read the policies, fees and terms on the
+                    <a href="https://canstemeducation.com/course-mode-change-terms-policy/" target="_blank"
+                        rel="noopener">Course Mode Change &amp; Terms</a> page.
+                </li>
+                <li>This request is subject to approval.</li>
+                <li>All fees are non-refundable; I will not request a refund.</li>
+                <li>To reverse a submitted request, I must submit a new request; the same fees apply and it will be
+                    treated as a separate request.</li>
+            </ul>
+            <div class="cs-checks">
+                <label class="cs-check"><input id="m-ack" type="checkbox" required> <strong>I have read and agree to all
+                        the terms above.</strong></label>
             </div>
 
             <hr class="cs-sep">
@@ -691,12 +737,10 @@
             <span class="cs-chip">Uploads</span>
             <div class="cs-field">
                 <label class="cs-label" for="m-up-payment">Proof of Payment</label>
-                <!-- name MUST match PHP: m_up_payment -->
                 <input class="cs-input" id="m-up-payment" name="m_up_payment" type="file" multiple>
             </div>
             <div class="cs-field">
                 <label class="cs-label" for="m-files">Upload Supporting Documents</label>
-                <!-- name MUST match PHP: m_files -->
                 <input class="cs-input" id="m-files" name="m_files" type="file" multiple>
             </div>
 
@@ -788,10 +832,10 @@
             }
 
             function setupAgeGate(prefix) {
-                const sel = document.getElementById(`${prefix}-age`);
-                const wrap = document.getElementById(`${prefix}-parentsig-wrap`);
-                const input = document.getElementById(`${prefix}-parentsig`);
-                const label = document.getElementById(`${prefix}-parentsig-label`);
+                const sel = document.getElementById(`${prefix}-age`),
+                    wrap = document.getElementById(`${prefix}-parentsig-wrap`),
+                    input = document.getElementById(`${prefix}-parentsig`),
+                    label = document.getElementById(`${prefix}-parentsig-label`);
                 const update = () => { const isAdult = sel.value === 'yes'; if (isAdult) { input.required = false; wrap.style.display = 'none'; } else { wrap.style.display = ''; input.required = true; label.classList.add('cs-reqmark'); } };
                 update(); sel.addEventListener('change', update);
             }
@@ -819,16 +863,14 @@
             function appendFiles(fd, inputId, fieldName) {
                 const el = document.getElementById(inputId);
                 if (!el || !el.files) return;
-                for (const f of el.files) fd.append(fieldName, f, f.name); // repeated name is fine in PHP
+                for (const f of el.files) fd.append(fieldName, f, f.name);
             }
 
             async function sendFields(fields, fileMap, statusId, paneId) {
                 setStatus(statusId, 'Submitting…', null);
                 try {
                     const fd = new FormData();
-                    // regular fields
                     Object.entries(fields).forEach(([k, v]) => fd.append(k, v));
-                    // files
                     fileMap.forEach(({ inputId, fieldName }) => appendFiles(fd, inputId, fieldName));
 
                     const resp = await fetch(WEB_APP_URL, { method: 'POST', body: fd, credentials: 'same-origin' });
@@ -855,13 +897,21 @@
                 if (!isValid('pane-withdraw')) return;
                 const grade = val('w-grade'), code = val('w-coursecode');
                 if (!validateCourseCode(grade, code)) { alert('Please choose a valid course code for the selected grade.'); return; }
+                const fullName = `${val('w-fname')} ${val('w-lname')}`.trim();
 
                 await sendFields({
                     type: 'Withdrawal',
-                    name: val('w-name'), email: val('w-email'), phone: val('w-phone'),
-                    grade, courseCode: code,
-                    studentSig: val('w-stusig'), parentSig: val('w-parentsig'),
-                    reason: val('w-reason')
+                    name: fullName,
+                    firstName: val('w-fname'),
+                    lastName: val('w-lname'),
+                    email: val('w-email'),
+                    phone: val('w-phone'),
+                    grade,
+                    courseCode: code,
+                    studentSig: val('w-stusig'),
+                    parentSig: val('w-parentsig'),
+                    reason: val('w-reason'),
+                    acceptTerms: document.getElementById('w-ack').checked ? 'Yes' : 'No'
                 }, [
                     { inputId: 'w-files', fieldName: 'w_files' }
                 ], 'w-status', 'pane-withdraw');
@@ -873,15 +923,23 @@
                 const gradeNew = val('c-grade2'), codeNew = val('c-newcode');
                 if (!validateCourseCode(gradeCur, codeCur)) { alert('Please pick a valid current course for the selected grade.'); return; }
                 if (!validateCourseCode(gradeNew, codeNew)) { alert('Please pick a valid NEW course for the selected grade.'); return; }
+                const fullName = `${val('c-fname')} ${val('c-lname')}`.trim();
 
                 await sendFields({
                     type: 'Change Course',
-                    name: val('c-name'), email: val('c-email'), phone: val('c-phone'),
-                    grade: gradeCur, courseCode: codeCur,
+                    name: fullName,
+                    firstName: val('c-fname'),
+                    lastName: val('c-lname'),
+                    email: val('c-email'),
+                    phone: val('c-phone'),
+                    grade: gradeCur,
+                    courseCode: codeCur,
                     newcourse: `${codeNew} – ${nameFor(gradeNew, codeNew)}`,
-                    studentSig: val('c-stusig'), parentSig: val('c-parentsig'),
+                    studentSig: val('c-stusig'),
+                    parentSig: val('c-parentsig'),
                     reason: val('c-reason'),
-                    paidConfirmed: document.getElementById('c-paid').checked ? 'Yes' : 'No'
+                    paidConfirmed: document.getElementById('c-paid').checked ? 'Yes' : 'No',
+                    acceptTerms: document.getElementById('c-ack').checked ? 'Yes' : 'No'
                 }, [
                     { inputId: 'c-up-payment', fieldName: 'c_up_payment' },
                     { inputId: 'c-prereq', fieldName: 'c_prereq' },
@@ -893,15 +951,24 @@
                 if (!isValid('pane-mode')) return;
                 const grade = val('m-grade'), code = val('m-coursecode');
                 if (!validateCourseCode(grade, code)) { alert('Please choose a valid course code for the selected grade.'); return; }
+                const fullName = `${val('m-fname')} ${val('m-lname')}`.trim();
 
                 await sendFields({
                     type: 'Mode Switch',
-                    name: val('m-name'), email: val('m-email'), phone: val('m-phone'),
-                    grade, courseCode: code,
-                    currentMode: val('m-currentmode'), mode: val('m-mode'),
-                    studentSig: val('m-stusig'), parentSig: val('m-parentsig'),
+                    name: fullName,
+                    firstName: val('m-fname'),
+                    lastName: val('m-lname'),
+                    email: val('m-email'),
+                    phone: val('m-phone'),
+                    grade,
+                    courseCode: code,
+                    currentMode: val('m-currentmode'),
+                    mode: val('m-mode'),
+                    studentSig: val('m-stusig'),
+                    parentSig: val('m-parentsig'),
                     reason: val('m-reason'),
-                    paidConfirmed: document.getElementById('m-paid').checked ? 'Yes' : 'No'
+                    paidConfirmed: document.getElementById('m-paid').checked ? 'Yes' : 'No',
+                    acceptTerms: document.getElementById('m-ack').checked ? 'Yes' : 'No'
                 }, [
                     { inputId: 'm-up-payment', fieldName: 'm_up_payment' },
                     { inputId: 'm-files', fieldName: 'm_files' }
